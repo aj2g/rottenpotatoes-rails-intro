@@ -11,9 +11,10 @@ class MoviesController < ApplicationController
   end
 
   def index
-       @movies = Movie.order(params[:sort_by])
-       @hilite = params[:sort_by]
-      #part 1
+      @movies = Movie.order(params[:sort_by])
+      @hilite = params[:sort_by]
+      @all_ratings = Movie.all_ratings # gets ratings from model
+      @checked_ratings = @all_ratings
   end
 
   def new
