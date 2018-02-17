@@ -22,9 +22,9 @@ class MoviesController < ApplicationController
             params[:ratings] = session[:ratings]
         end
         @all_ratings = Movie.all_ratings # gets ratings from model
-        @checked_ratings = (params[:ratings].keys if params.key?(:ratings)) || @all_ratings
-        @movies = Movie.order(params[:sort_by]).where(rating: @checked_ratings) #will now filter movies
-        @hilite = params[:sort_by]
+        @checked_ratings = (session[:ratings].keys if session.key?(:ratings)) || @all_ratings #use session instead to save check boxes
+        @movies = Movie.order(session[:sort_by]).where(rating: @checked_ratings) #will now filter movies
+        @hilite = session[:sort_by] #use session to remember
   end
 
   def new
