@@ -11,11 +11,20 @@ class MoviesController < ApplicationController
   end
 
   def index
-      @all_ratings = Movie.all_ratings # gets ratings from model
-      @checked_ratings = (params[:ratings].keys if params.key?(:ratings)) || @all_ratings
-      @movies = Movie.order(params[:sort_by]).where(rating: @checked_ratings) #will now filter movies
-      @hilite = params[:sort_by]
-      #part 2
+       if params.key?(:sort_by)
+            session[:sort_by] = params[:sort_by] #saves params to session
+        elsif session.key?(:sort_by)
+            params[:sort_by] = session[:sort_by] #uses session if there is one to remember.
+        end
+        if params.key?(:ratings)
+            session[:ratings] = params[:ratings] #same as above
+        elsif session.key?(:ratings) 
+            params[:ratings] = session[:ratings]
+        end
+        @all_ratings = Movie.all_ratings # gets ratings from model
+        @checked_ratings = (params[:ratings].keys if params.key?(:ratings)) || @all_ratings
+        @movies = Movie.order(params[:sort_by]).where(rating: @checked_ratings) #will now filter movies
+        @hilite = params[:sort_by]
   end
 
   def new
