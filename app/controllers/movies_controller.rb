@@ -15,11 +15,15 @@ class MoviesController < ApplicationController
             session[:sort_by] = params[:sort_by] #saves params to session
         elsif session.key?(:sort_by)
             params[:sort_by] = session[:sort_by] #uses session if there is one to remember.
+           flash.keep
+           redirect_to movies_path(params)
         end
         if params.key?(:ratings)
             session[:ratings] = params[:ratings] #same as above
         elsif session.key?(:ratings) 
             params[:ratings] = session[:ratings]
+            flash.keep
+            redirect_to movies_path(params)
         end
         @all_ratings = Movie.all_ratings # gets ratings from model
         @checked_ratings = (session[:ratings].keys if session.key?(:ratings)) || @all_ratings #use session instead to save check boxes
