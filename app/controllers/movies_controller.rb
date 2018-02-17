@@ -11,9 +11,7 @@ class MoviesController < ApplicationController
   end
 
   def index
-      @hilite = session[:sort_by]
-      sort_by = session[:sort_by]
-      @movies = Movie.order(sort_by)
+      @movies = Movie.all
   end
 
   def new
