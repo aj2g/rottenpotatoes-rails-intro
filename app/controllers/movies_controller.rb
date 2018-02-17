@@ -15,6 +15,7 @@ class MoviesController < ApplicationController
       @checked_ratings = (params[:ratings].keys if params.key?(:ratings)) || @all_ratings
       @movies = Movie.order(params[:sort_by]).where(rating: @checked_ratings) #will now filter movies
       @hilite = params[:sort_by]
+      #part 2
   end
 
   def new
