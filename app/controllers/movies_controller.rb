@@ -14,7 +14,7 @@ class MoviesController < ApplicationController
       @movies = Movie.order(params[:sort_by])
       @hilite = params[:sort_by]
       @all_ratings = Movie.all_ratings # gets ratings from model
-      @checked_ratings = @all_ratings
+      @checked_ratings = params[:ratings.keys]
   end
 
   def new
