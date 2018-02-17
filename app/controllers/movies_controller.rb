@@ -11,7 +11,7 @@ class MoviesController < ApplicationController
   end
 
   def index
-      @movies = Movie.order(params[:sort_by])
+      @movies = Movie.order(params[:sort_by]).where(rating: @checked_ratings) #will now filter movies
       @hilite = params[:sort_by]
       @all_ratings = Movie.all_ratings # gets ratings from model
       @checked_ratings = (params[:ratings].keys if session.key?(:ratings)) || @all_ratings
